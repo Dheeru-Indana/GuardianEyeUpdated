@@ -1,0 +1,477 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #000;
+    color: #fff;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Matrix rain background */
+#matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+    z-index: 1;
+}
+
+.guardian-eye {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    border: 1px solid #0f0;
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+/* Futuristic Eye Logo */
+.eye-logo {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.eye-logo:hover {
+    transform: scale(1.05);
+}
+
+.eye-outer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #ffffff 0%, #e0e0e0 25%, #a0a0a0 50%, #505050 75%, #303030 100%);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), inset 0 0 30px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite alternate;
+    border: 2px solid #0f0;
+    overflow: hidden;
+}
+
+.eye-middle {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    border: 1px solid rgba(15, 255, 0, 0.3);
+    box-shadow: inset 0 0 10px rgba(15, 255, 0, 0.3);
+    animation: rotate 20s linear infinite;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, rgba(200,200,200,0.1) 40%, rgba(150,150,150,0.1) 60%, rgba(100,100,100,0.1) 80%, rgba(50,50,50,0.1) 100%);
+}
+
+.eye-inner {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #4a8af4 0%, #3a7ae4 20%, #2a6ad4 40%, #1a5ac4 60%, #0a4ab4 80%, #003a94 100%);
+    box-shadow: 0 0 15px rgba(74, 138, 244, 0.8), inset 0 0 20px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(15, 255, 0, 0.5);
+    overflow: hidden;
+}
+
+.eye-pupil {
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 30%, #000000 75%, #222222 85%, #000000 100%);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.2);
+    animation: pupil-breathe 3s infinite alternate;
+    border: 1px solid rgba(15, 255, 0, 0.5);
+    z-index: 10;
+}
+
+.eye-scanner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.eye-scanner:after {
+    content: '';
+    position: absolute;
+    height: 2px;
+    width: 100%;
+    background: rgba(0, 255, 0, 0.3);
+    top: 50%;
+    animation: scan-line 2s linear infinite;
+    box-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
+}
+
+.eye-tech-circle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #0f0;
+    box-shadow: 0 0 5px #0f0;
+}
+
+.eye-tech-circle.top {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.eye-tech-circle.right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+}
+
+.eye-tech-circle.bottom {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.eye-tech-circle.left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.eye-lines {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 255, 0, 0.3);
+}
+
+.eye-lines:before, .eye-lines:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 1px;
+    height: 100%;
+    background: rgba(0, 255, 0, 0.3);
+}
+
+.eye-lines:after {
+    transform: rotate(90deg);
+}
+
+/* Iris texture */
+.iris-texture {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: repeating-radial-gradient(
+        circle at center,
+        transparent 0px,
+        rgba(0, 0, 0, 0.1) 1px,
+        transparent 2px,
+        rgba(0, 0, 0, 0.1) 3px
+    );
+    opacity: 0.7;
+    mix-blend-mode: overlay;
+}
+
+.iris-flare {
+    position: absolute;
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
+    top: 20%;
+    left: 20%;
+    filter: blur(1px);
+}
+
+.pupil-reflection {
+    position: absolute;
+    width: 40%;
+    height: 40%;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.9) 0%, transparent 80%);
+    top: 15%;
+    left: 15%;
+    filter: blur(1px);
+}
+
+/* Eyelids */
+.eye-eyelid {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+.eye-eyelid.top {
+    top: -50%;
+    border-bottom-left-radius: 50% 100%;
+    border-bottom-right-radius: 50% 100%;
+    border-bottom: 1px solid rgba(15, 255, 0, 0.3);
+    animation: blink-top 6s infinite;
+}
+
+.eye-eyelid.bottom {
+    bottom: -50%;
+    border-top-left-radius: 50% 100%;
+    border-top-right-radius: 50% 100%;
+    border-top: 1px solid rgba(15, 255, 0, 0.3);
+    animation: blink-bottom 6s infinite;
+}
+
+/* Eye veins */
+.eye-veins {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at 30% 30%, transparent 0%, transparent 80%, rgba(255, 0, 0, 0.1) 85%, transparent 90%),
+        radial-gradient(circle at 70% 40%, transparent 0%, transparent 80%, rgba(255, 0, 0, 0.1) 85%, transparent 90%),
+        radial-gradient(circle at 40% 70%, transparent 0%, transparent 80%, rgba(255, 0, 0, 0.1) 85%, transparent 90%),
+        radial-gradient(circle at 60% 60%, transparent 0%, transparent 80%, rgba(255, 0, 0, 0.1) 85%, transparent 90%);
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+}
+
+@keyframes blink-top {
+    0%, 45%, 55%, 100% { top: -50%; }
+    50% { top: 0%; }
+}
+
+@keyframes blink-bottom {
+    0%, 45%, 55%, 100% { bottom: -50%; }
+    50% { bottom: 0%; }
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes pupil-breathe {
+    0% {
+        transform: scale(1);
+        background: radial-gradient(circle at 40% 30%, #000000 75%, #222222 85%, #000000 100%);
+    }
+    50% {
+        transform: scale(1.2);
+        background: radial-gradient(circle at 40% 30%, #000000 70%, #0f0 85%, #000000 100%);
+    }
+    100% {
+        transform: scale(1);
+        background: radial-gradient(circle at 40% 30%, #000000 75%, #222222 85%, #000000 100%);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes scan-line {
+    0% {
+        top: 0;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #0f0;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+    margin-bottom: 1rem;
+    letter-spacing: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Feature details */
+.feature-details {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.eye-logo:hover + .title + .feature-details,
+.feature-details:hover {
+    display: block;
+    opacity: 1;
+}
+
+.feature {
+    position: absolute;
+    padding: 0.5rem 1rem;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    border: 1px solid #0f0;
+    color: #0f0;
+    font-size: 0.9rem;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    transition: all 0.3s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.feature:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 238, 255, 0.8);
+}
+
+.location-intelligence {
+    top: 10%;
+    left: 10%;
+}
+
+.behavior-analytics {
+    top: 10%;
+    right: 10%;
+}
+
+.gesture-language {
+    top: 50%;
+    left: 5%;
+}
+
+.group-anomaly {
+    top: 50%;
+    right: 5%;
+}
+
+.detection-suspicious {
+    bottom: 10%;
+    left: 10%;
+}
+
+.rapid-response {
+    bottom: 10%;
+    right: 10%;
+}
+
+/* Try button */
+.try-button-container {
+    margin-top: 2rem;
+}
+
+.try-button {
+    padding: 0.8rem 3rem;
+    font-size: 1.2rem;
+    background: linear-gradient(45deg, #0f0, #006400);
+    color: white;
+    border: 1px solid #0f0;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Courier New', monospace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.try-button:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: rotate(45deg);
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.try-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+    background: linear-gradient(45deg, #006400, #0f0);
+}
+
+.try-button:hover:before {
+    animation: shine 1s forwards;
+}
+
+@keyframes shine {
+    0% {
+        left: -50%;
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        left: 150%;
+        opacity: 0;
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .guardian-eye {
+        padding: 1rem;
+    }
+    
+    .eye-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .title {
+        font-size: 1.8rem;
+    }
+    
+    .feature {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.7rem;
+    }
+}
